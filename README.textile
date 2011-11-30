@@ -20,6 +20,7 @@ gem 'ruby_tika_app'
 </pre>
 
 h3. Note about installation
+
 RubyTikaApp is a pretty big gem since it includes the ruby-tika-app jarfile.
 It might take a while to install.
 
