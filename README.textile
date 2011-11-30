@@ -6,7 +6,7 @@ This is a simple frontend to the Java Tika parser command line jar / app.
 
 It is the same as running: 
 <pre>
-  java -server -Djava.awt.headless=true -jar tika-app-0.10.jar FileToParse.pdf
+java -server -Djava.awt.headless=true -jar tika-app-0.10.jar FileToParse.pdf
 </pre>
 
 with options like --xml, --text, etc.
