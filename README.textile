@@ -1,0 +1,45 @@
+h1. Ruby Tika Parser
+
+h2. Introduction
+
+This is a simple frontend to the Java Tika parser command line jar / app.
+
+It is the same as running: 
+<pre>
+  java -server -Djava.awt.headless=true -jar tika-app-0.10.jar FileToParse.pdf
+</pre>
+
+with options like --xml, --text, etc.
+
+h2. Installation
+
+To install, add ruby_tika_app to your @Gemfile@ and run `bundle install`:
+
+<pre>
+gem 'ruby_tika_app'
+</pre>
+
+h3. Note about installation
+RubyTikaApp is a pretty big gem since it includes the ruby-tika-app jarfile.
+It might take a while to install.
+
+h2. Usage
+
+First, you need Java installed.  And it needs to be in your $PATH.
+
+Then:
+
+<pre>
+require 'ruby_tika_app'
+
+rta = RubyTikaApp.new("sample_file.pdf")
+
+puts rta.to_xml # <xml output>
+
+# You also get to_json, to_text, to_text_main, and to_metadata
+
+</pre>
+
+h2. Contributing
+
+Fork on GitHub and after you've committed tested patches, send a pull request.

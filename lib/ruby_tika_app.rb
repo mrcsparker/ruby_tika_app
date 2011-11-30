@@ -6,8 +6,6 @@ require 'open4'
 
 class RubyTikaApp
 
-  VERSION = "0.1"
-
   class Error < RuntimeError; end
 
   class CommandFailedError < Error

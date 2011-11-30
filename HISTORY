@@ -1,0 +1,7 @@
+0.2 - November 30, 2011
+* Fixed open4 bundler issue - file was getting required that needed open4 before add_dependency
+* Added README info, HISTORY
+* Added more tests
+
+0.1 - November 29, 2011
+* Initial release

@@ -35,18 +35,51 @@ describe RubyTikaApp do
   end
 
   describe "#to_json" do
+    it "header" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_json[0..42].should == "{ \"Application\":\"\\u0027Certified by IEEE PD"
+    end
 
+    it "middle" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_json[100 ... 150].should == "h\":171510, \n\"Content-Type\":\"application/pdf\", \n\"Cr"
+    end
   end
 
   describe "#to_text" do
+    it "header" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_text[0..42].should == "Understanding Graph Sampling Algorithms\nfor"
+    end
 
+    it "middle" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_text[100 ... 150].should == "n Zhang3, Tianyin Xu2\nLong Jin1, Pan Hui4, Beixing"
+    end
   end
 
   describe "#to_text_main" do
+    it "header" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_text_main[0..42].should == "Understanding Graph Sampling Algorithms for"
+    end
 
+    it "middle" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_text_main[100 ... 150].should == "n Zhang3, Tianyin Xu2 Long Jin1, Pan Hui4, Beixing"
+    end
   end
 
   describe "#to_metadata" do
+    it "header" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_metadata[0..42].should == "Application: 'Certified by IEEE PDFeXpress "
+    end
+
+    it "middle" do
+      rta = RubyTikaApp.new(@test_file)
+      rta.to_metadata[100 ... 150].should == "Type: application/pdf\nCreation-Date: 2011-03-29T12"
+    end
 
   end
 
