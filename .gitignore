@@ -2,3 +2,6 @@
 .bundle
 Gemfile.lock
 pkg/*
+.sublime-project
+.sublime-project.sublime-workspace
+.rbenv-version

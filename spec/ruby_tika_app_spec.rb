@@ -16,9 +16,9 @@ describe RubyTikaApp do
       rta = RubyTikaApp.new(@test_file)
       xml = rta.to_xml
 
-      xml_size = xml.size / 2
+      xml_size = xml.size / 2 + 5
 
-      xml[xml_size..(xml_size + 100)].should == "HRW considers all the duplicated nodes as valid nodes.\nThese duplicated nodes make the node distribut"
+      xml[xml_size..(xml_size + 95)].should == "MHRW performs better in well connected graphs than in\nloosely connected graphs, as it was origin"
     end
   end
 
@@ -30,7 +30,7 @@ describe RubyTikaApp do
 
     it "middle" do
       rta = RubyTikaApp.new(@test_file)
-      rta.to_html[1000 ... 1100].should == "ersity of Goettingen, Germany\n3 Department of Computer Science, U.C. Santa Barbara, USA\n4 Deutsche T"
+      rta.to_html[1000 ... 1100].should == "rceName\" content=\"graph_sampling_simplex11.pdf\"/>\n<meta name=\"Last-Save-Date\" content=\"2011-03-29T13"
     end
   end
 
@@ -54,7 +54,7 @@ describe RubyTikaApp do
 
     it "middle" do
       rta = RubyTikaApp.new(@test_file)
-      rta.to_text[100 ... 150].should == "n Zhang3, Tianyin Xu2\nLong Jin1, Pan Hui4, Beixing"
+      rta.to_text[100 ... 150].should == "n Zhang3, Tianyin Xu2\n\nLong Jin1, Pan Hui4, Beixin"
     end
   end
 
@@ -66,7 +66,7 @@ describe RubyTikaApp do
 
     it "middle" do
       rta = RubyTikaApp.new(@test_file)
-      rta.to_text_main[100 ... 150].should == "n Zhang3, Tianyin Xu2 Long Jin1, Pan Hui4, Beixing"
+      rta.to_text_main[100 ... 150].should == "n Zhang3, Tianyin Xu2\nLong Jin1, Pan Hui4, Beixing"
     end
   end
 
