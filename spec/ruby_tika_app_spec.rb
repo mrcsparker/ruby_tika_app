@@ -16,9 +16,9 @@ describe RubyTikaApp do
       rta = RubyTikaApp.new(@test_file)
       xml = rta.to_xml
 
-      xml_size = xml.size / 2 + 5
+      xml_size = xml.size / 2
 
-      xml[xml_size..(xml_size + 95)].should == "MHRW performs better in well connected graphs than in\nloosely connected graphs, as it was origin"
+      xml[xml_size..(xml_size + 100)].should == "(Section IV). Besides,\nMHRW performs better in well connected graphs than in\nloosely connected graphs"
     end
   end
 
