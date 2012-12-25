@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RubyTikaApp do
 
   before(:each) do
-    @test_file = "#{File.join(File.dirname(__FILE__))}/docs/graph_sampling_simplex11.pdf"
+    @test_file = "#{File.join(File.dirname(__FILE__))}/docs/graph sampling simplex - 11.pdf"
   end
 
   describe "#to_xml" do
@@ -18,7 +18,7 @@ describe RubyTikaApp do
 
       xml_size = xml.size / 2
 
-      xml[xml_size..(xml_size + 100)].should == "(Section IV). Besides,\nMHRW performs better in well connected graphs than in\nloosely connected graphs"
+      xml[xml_size..(xml_size + 100)].should == "sides,\nMHRW performs better in well connected graphs than in\nloosely connected graphs, as it was orig"
     end
   end
 
@@ -30,7 +30,7 @@ describe RubyTikaApp do
 
     it "middle" do
       rta = RubyTikaApp.new(@test_file)
-      rta.to_html[1000 ... 1100].should == "rceName\" content=\"graph_sampling_simplex11.pdf\"/>\n<meta name=\"Last-Save-Date\" content=\"2011-03-29T13"
+      rta.to_html[1000 ... 1100].should == "rceName\" content=\"graph sampling simplex - 11.pdf\"/>\n<meta name=\"Last-Save-Date\" content=\"2011-03-29"
     end
   end
 
@@ -80,7 +80,6 @@ describe RubyTikaApp do
       rta = RubyTikaApp.new(@test_file)
       rta.to_metadata[100 ... 150].should == "Type: application/pdf\nCreation-Date: 2011-03-29T12"
     end
-
   end
 
 end

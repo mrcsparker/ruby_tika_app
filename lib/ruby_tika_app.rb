@@ -16,14 +16,13 @@ class RubyTikaApp
   end
 
   def initialize(document)
-
-    @document = document
+    @document = "file://#{document}"
 
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'
     tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.2.jar"
 
-    @tika_cmd = "#{java_cmd} #{java_args} -jar #{tika_path}"
+    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}'"
   end
 
   def to_xml
@@ -54,7 +53,7 @@ class RubyTikaApp
 
   def run_tika(option)
 
-    final_cmd = "#{@tika_cmd} #{option} #{@document}"
+    final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
     result = []
 
 
