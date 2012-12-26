@@ -52,7 +52,6 @@ class RubyTikaApp
   private
 
   def run_tika(option)
-
     final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
     result = []
 
@@ -62,7 +61,7 @@ class RubyTikaApp
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
 
-    unless stderr_result.strip == "" then
+    unless strip_stderr(stderr_result).empty?
       raise(CommandFailedError.new(stderr_result),
             "execution failed with status #{stderr_result}: #{final_cmd}")
     end
@@ -72,6 +71,10 @@ class RubyTikaApp
     stdin.close
     stdout.close
     stderr.close
+  end
+
+  def strip_stderr(s)
+    s.gsub(/^info - .*$/i, '').strip
   end
 
 end
