@@ -16,14 +16,13 @@ class RubyTikaApp
   end
 
   def initialize(document)
-
-    @document = document
+    @document = "file://#{document}"
 
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'
     tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.2.jar"
 
-    @tika_cmd = "#{java_cmd} #{java_args} -jar #{tika_path}"
+    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}'"
   end
 
   def to_xml
@@ -53,8 +52,7 @@ class RubyTikaApp
   private
 
   def run_tika(option)
-
-    final_cmd = "#{@tika_cmd} #{option} #{@document}"
+    final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
     result = []
 
 
@@ -63,7 +61,7 @@ class RubyTikaApp
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
 
-    unless stderr_result.strip == "" then
+    unless strip_stderr(stderr_result).empty?
       raise(CommandFailedError.new(stderr_result),
             "execution failed with status #{stderr_result}: #{final_cmd}")
     end
@@ -73,6 +71,10 @@ class RubyTikaApp
     stdin.close
     stdout.close
     stderr.close
+  end
+
+  def strip_stderr(s)
+    s.gsub(/^(info|warn) - .*$/i, '').strip
   end
 
 end
