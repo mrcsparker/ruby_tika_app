@@ -74,7 +74,7 @@ class RubyTikaApp
   end
 
   def strip_stderr(s)
-    s.gsub(/^info - .*$/i, '').strip
+    s.gsub(/^(info|warn) - .*$/i, '').strip
   end
 
 end
