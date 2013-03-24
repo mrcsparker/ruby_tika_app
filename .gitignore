@@ -5,3 +5,5 @@ pkg/*
 .sublime-project
 .sublime-project.sublime-workspace
 .rbenv-version
+.idea
+coverage/*

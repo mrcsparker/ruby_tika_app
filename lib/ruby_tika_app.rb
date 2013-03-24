@@ -10,7 +10,7 @@ class RubyTikaApp
 
   class CommandFailedError < Error
     attr_reader :status
-    def initialize status
+    def initialize(status)
       @status = status
     end
   end
@@ -53,8 +53,6 @@ class RubyTikaApp
 
   def run_tika(option)
     final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
-    result = []
-
 
     pid, stdin, stdout, stderr = Open4::popen4(final_cmd)
 
