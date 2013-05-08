@@ -3,7 +3,12 @@ require 'spec_helper'
 describe RubyTikaApp do
 
   before(:each) do
-    @test_file = "#{File.join(File.dirname(__FILE__))}/docs/graph sampling simplex - 11.pdf"
+    doc_path = "#{File.join(File.dirname(__FILE__))}/docs"
+    
+    @test_file = "#{doc_path}/graph sampling simplex - 11.pdf"
+
+    @cnn_com_file = "#{doc_path}/cnn.com"
+    @news_ycombinator_com_file = "#{doc_path}/news.ycombinator.com"
   end
 
   describe 'Error' do
@@ -88,6 +93,20 @@ describe RubyTikaApp do
     it 'middle' do
       rta = RubyTikaApp.new(@test_file)
       rta.to_metadata[100 ... 150].should == "Type: application/pdf\nCreation-Date: 2011-03-29T12"
+    end
+  end
+
+  describe 'external URLs' do
+    it 'should be able to parse an http url' do
+      rta = RubyTikaApp.new("http://localhost:9299/cnn.com")
+      rta.to_text.should_not be_nil
+      rta.to_text.should eq(RubyTikaApp.new(@cnn_com_file).to_text)
+    end
+
+    it 'should be able to parse another http url' do
+      rta = RubyTikaApp.new("http://localhost:9299/news.ycombinator.com")
+      rta.to_text.should_not be_nil
+      rta.to_text.should eq(RubyTikaApp.new(@news_ycombinator_com_file).to_text)
     end
   end
 

@@ -16,7 +16,11 @@ class RubyTikaApp
   end
 
   def initialize(document)
-    @document = "file://#{document}"
+    if (document =~ /https?:\/\/[\S]+/) == 0
+      @document = document
+    else
+      @document = "file://#{document}"
+    end
 
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'

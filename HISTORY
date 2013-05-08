@@ -1,7 +1,10 @@
-0.2 - November 30, 2011
+1.0.1 - May 8, 2013
+* Fixed issue where URLs were not being parsed.
+
+0.2.0 - November 30, 2011
 * Fixed open4 bundler issue - file was getting required that needed open4 before add_dependency
 * Added README info, HISTORY
 * Added more tests
 
-0.1 - November 29, 2011
+0.1.0 - November 29, 2011
 * Initial release
