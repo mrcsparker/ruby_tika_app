@@ -8,7 +8,7 @@ require 'ruby_tika_app'
 require 'rspec'
 
 # Include all files under spec/support
-Dir["./spec/support/**/*.rb"].each {|f| require f}
+Dir['./spec/support/**/*.rb'].each {|f| require f}
 
 # Start a local rack server to serve up test pages.
 @server_thread = Thread.new do
@@ -17,6 +17,3 @@ end
 
 sleep(1) # wait a sec for the server to be booted
 
-RSpec.configure do |config|
-
-end

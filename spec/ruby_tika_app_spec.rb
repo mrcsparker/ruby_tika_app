@@ -98,13 +98,13 @@ describe RubyTikaApp do
 
   describe 'external URLs' do
     it 'should be able to parse an http url' do
-      rta = RubyTikaApp.new("http://localhost:9299/cnn.com")
+      rta = RubyTikaApp.new('http://localhost:9299/cnn.com')
       rta.to_text.should_not be_nil
       rta.to_text.should eq(RubyTikaApp.new(@cnn_com_file).to_text)
     end
 
     it 'should be able to parse another http url' do
-      rta = RubyTikaApp.new("http://localhost:9299/news.ycombinator.com")
+      rta = RubyTikaApp.new('http://localhost:9299/news.ycombinator.com')
       rta.to_text.should_not be_nil
       rta.to_text.should eq(RubyTikaApp.new(@news_ycombinator_com_file).to_text)
     end
