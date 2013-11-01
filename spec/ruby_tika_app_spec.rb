@@ -32,7 +32,7 @@ describe RubyTikaApp do
 
       xml_size = xml.size / 2
 
-      xml[xml_size..(xml_size + 100)].should == "S (Section IV). Besides,\nMHRW performs better in well connected graphs than in\nloosely connected grap"
+      xml[xml_size..(xml_size + 100)].should == "ction IV). Besides,\nMHRW performs better in well connected graphs than in\nloosely connected graphs, a"
     end
   end
 
