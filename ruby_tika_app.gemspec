@@ -3,7 +3,7 @@ $:.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'ruby_tika_app'
-  s.version     = '1.4.0'
+  s.version     = '1.5.0'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Chris Parker']
   s.email       = %w(mrcsparker@gmail.com)
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('open4')
 
   s.add_development_dependency('rake')
-  s.add_development_dependency('rspec', '~> 2.13.0')
+  s.add_development_dependency('rspec', '~> 3.3.0')
   s.add_development_dependency('bundler', '>= 1.0.15')
   s.add_development_dependency('simplecov')
   s.add_development_dependency('json')
