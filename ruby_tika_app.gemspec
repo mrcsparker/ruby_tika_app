@@ -3,7 +3,7 @@ $:.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'ruby_tika_app'
-  s.version     = '1.5.0'
+  s.version     = '1.6.0'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Chris Parker']
   s.email       = %w(mrcsparker@gmail.com)
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'ruby_tika_app'
 
-  s.files         = `git ls-files`.split("\n") + 
+  s.files         = `git ls-files`.split("\n") +
     %w(LICENSE README.md HISTORY)
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('json')
   s.add_development_dependency('rack')
   s.add_development_dependency('thin')
+  s.add_development_dependency('pry')
 end
