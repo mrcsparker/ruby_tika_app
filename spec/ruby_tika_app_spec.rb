@@ -4,7 +4,7 @@ describe RubyTikaApp do
 
   before(:each) do
     doc_path = "#{File.join(File.dirname(__FILE__))}/docs"
-    
+
     @test_file = "#{doc_path}/graph sampling simplex - 11.pdf"
 
     @cnn_com_file = "#{doc_path}/cnn.com"
@@ -25,14 +25,14 @@ describe RubyTikaApp do
       rta = RubyTikaApp.new(@test_file)
       expect(rta.to_xml[0..37]).to eq("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
     end
-  
+
     it 'middle' do
       rta = RubyTikaApp.new(@test_file)
       xml = rta.to_xml
 
       xml_size = xml.size / 2
 
-      expect(xml[xml_size..(xml_size + 100)]).to eq("plicated nodes make the node distribution converge\nto uniform distribution. We do not need to conside")
+      expect(xml[xml_size..(xml_size + 100)]).to eq("Frontier Sampling (FS).\nSince this is the only difference between MHRW and USDSG,\nto be simple, we wi")
     end
   end
 
@@ -44,7 +44,7 @@ describe RubyTikaApp do
 
     it 'middle' do
       rta = RubyTikaApp.new(@test_file)
-      expect(rta.to_html[1000 ... 1100]).to eq("on/pdf\"/>\n<meta name=\"X-Parsed-By\" content=\"org.apache.tika.parser.DefaultParser\"/>\n<meta name=\"X-Pa")
+      expect(rta.to_html[1000 ... 1100]).to eq("Z\"/>\n<meta name=\"meta:save-date\" content=\"2011-03-29T13:00:16Z\"/>\n<meta name=\"pdf:encrypted\" content")
     end
   end
 
