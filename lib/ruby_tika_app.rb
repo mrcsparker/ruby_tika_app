@@ -76,7 +76,10 @@ class RubyTikaApp
   end
 
   def strip_stderr(s)
-    s.gsub(/^(info|warn) - .*$/i, '').strip
+    s
+      .gsub(/^(info|warn) - .*$/i, '')
+      .strip
+      .gsub(/Picked up JAVA_TOOL_OPTIONS: .+ -Dfile.encoding=UTF-8/i, '')
+      .strip
   end
-
 end
