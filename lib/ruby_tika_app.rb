@@ -15,20 +15,20 @@ class RubyTikaApp
     end
   end
 
-  def initialize(document)
+  def initialize(document, config=nil)
+    @config = config
     if (document =~ /https?:\/\/[\S]+/) == 0
       @document = document
     else
       @document = "file://#{document}"
     end
-
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'
-    tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.14.jar"
+    tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.18.jar"
 
-    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}'"
+    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}' #{tika_config}"
   end
-
+  
   def to_xml
     run_tika('--xml')
   end
@@ -76,7 +76,16 @@ class RubyTikaApp
   end
 
   def strip_stderr(s)
-    s.gsub(/^(info|warn) - .*$/i, '').strip
+    errors = s.split("\n")
+    real_errors = errors.reject { |e| /(INFO|WARN)/i.match(e) }
+    real_errors.empty? ? real_errors : real_errors.join("\n")
   end
 
+  def tika_config
+    "--config=#{tika_config_path}"
+  end
+
+  def tika_config_path
+    @config ? @config : "#{File.join(File.dirname(__FILE__))}/../ext/tika-config.xml"
+  end
 end
