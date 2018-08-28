@@ -4,6 +4,10 @@ AllCops:
   Exclude:
     - 'ext/*'
 
+Metrics/AbcSize:
+  Enabled: true
+  Max: 28
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'

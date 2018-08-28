@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Based on the rake remote task code
-
 require 'rubygems'
 require 'stringio'
 require 'open4'
@@ -81,7 +80,7 @@ class RubyTikaApp
 
   def strip_stderr(error_message)
     errors = error_message.split("\n")
-    real_errors = errors.reject { |error| error =~ %r{(INFO|WARN)} }
+    real_errors = errors.reject { |error| error =~ /(INFO|WARN)/ }
     real_errors.empty? ? real_errors : real_errors.join("\n")
   end
 
@@ -98,6 +97,6 @@ class RubyTikaApp
   end
 
   def tika_path
-    File.join(File.dirname(__FILE__),'..', 'ext', 'tika-app-1.18.jar')
+    File.join(File.dirname(__FILE__), '..', 'ext', 'tika-app-1.18.jar')
   end
 end
