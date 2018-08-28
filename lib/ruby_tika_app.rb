@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Based on the rake remote task code
 
 require 'rubygems'
@@ -5,7 +7,6 @@ require 'stringio'
 require 'open4'
 
 class RubyTikaApp
-
   class Error < RuntimeError; end
 
   class CommandFailedError < Error
@@ -15,20 +16,21 @@ class RubyTikaApp
     end
   end
 
-  def initialize(document, config=nil)
+  def initialize(document, config = nil)
     @config = config
-    if (document =~ /https?:\/\/[\S]+/) == 0
-      @document = document
-    else
-      @document = "file://#{document}"
-    end
+    @document = if document =~ %r{https?:\/\/[\S]+}
+                  document
+                else
+                  "file://#{document}"
+                end
+
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'
     tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.18.jar"
 
     @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}' #{tika_config}"
   end
-  
+
   def to_xml
     run_tika('--xml')
   end
@@ -58,7 +60,7 @@ class RubyTikaApp
   def run_tika(option)
     final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
 
-    pid, stdin, stdout, stderr = Open4::popen4(final_cmd)
+    _pid, stdin, stdout, stderr = Open4.popen4(final_cmd)
 
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
@@ -75,8 +77,8 @@ class RubyTikaApp
     stderr.close
   end
 
-  def strip_stderr(s)
-    errors = s.split("\n")
+  def strip_stderr(error_message)
+    errors = error_message.split("\n")
     real_errors = errors.reject { |e| /(INFO|WARN)/i.match(e) }
     real_errors.empty? ? real_errors : real_errors.join("\n")
   end
@@ -86,6 +88,6 @@ class RubyTikaApp
   end
 
   def tika_config_path
-    @config ? @config : "#{File.join(File.dirname(__FILE__))}/../ext/tika-config.xml"
+    @config || "#{File.join(File.dirname(__FILE__))}/../ext/tika-config.xml"
   end
 end
