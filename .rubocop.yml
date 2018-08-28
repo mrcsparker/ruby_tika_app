@@ -1,0 +1,26 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'ext/*'
+
+Metrics/AbcSize:
+  Enabled: true
+  Max: 28
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 200
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 14
+
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*'

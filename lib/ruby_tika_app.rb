@@ -1,11 +1,11 @@
-# Based on the rake remote task code
+# frozen_string_literal: true
 
+# Based on the rake remote task code
 require 'rubygems'
 require 'stringio'
 require 'open4'
 
 class RubyTikaApp
-
   class Error < RuntimeError; end
 
   class CommandFailedError < Error
@@ -15,18 +15,13 @@ class RubyTikaApp
     end
   end
 
-  def initialize(document)
-    if (document =~ /https?:\/\/[\S]+/) == 0
-      @document = document
-    else
-      @document = "file://#{document}"
-    end
-
-    java_cmd = 'java'
-    java_args = '-server -Djava.awt.headless=true'
-    tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.14.jar"
-
-    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}'"
+  def initialize(document, config = nil)
+    @config = config
+    @document = if document =~ %r{https?:\/\/[\S]+}
+                  document
+                else
+                  "file://#{document}"
+                end
   end
 
   def to_xml
@@ -55,10 +50,18 @@ class RubyTikaApp
 
   private
 
-  def run_tika(option)
-    final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
+  def java_args
+    '-server -Djava.awt.headless=true'
+  end
 
-    pid, stdin, stdout, stderr = Open4::popen4(final_cmd)
+  def java_cmd
+    'java'
+  end
+
+  def run_tika(option)
+    final_cmd = "#{tika_cmd} #{option} '#{@document}'"
+
+    _pid, stdin, stdout, stderr = Open4.popen4(final_cmd)
 
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
@@ -75,8 +78,25 @@ class RubyTikaApp
     stderr.close
   end
 
-  def strip_stderr(s)
-    s.gsub(/^(info|warn) - .*$/i, '').strip
+  def strip_stderr(error_message)
+    errors = error_message.split("\n")
+    real_errors = errors.reject { |error| error =~ /(INFO|WARN)/ }
+    real_errors.empty? ? real_errors : real_errors.join("\n")
   end
 
+  def tika_cmd
+    "#{java_cmd} #{java_args} -jar '#{tika_path}' #{tika_config}"
+  end
+
+  def tika_config
+    "--config=#{tika_config_path}"
+  end
+
+  def tika_config_path
+    @config || File.join(File.dirname(__FILE__), '..', 'ext', 'tika-config.xml')
+  end
+
+  def tika_path
+    File.join(File.dirname(__FILE__), '..', 'ext', 'tika-app-1.18.jar')
+  end
 end
