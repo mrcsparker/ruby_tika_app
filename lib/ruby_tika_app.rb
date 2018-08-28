@@ -23,12 +23,6 @@ class RubyTikaApp
                 else
                   "file://#{document}"
                 end
-
-    java_cmd = 'java'
-    java_args = '-server -Djava.awt.headless=true'
-    tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.18.jar"
-
-    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}' #{tika_config}"
   end
 
   def to_xml
@@ -57,8 +51,16 @@ class RubyTikaApp
 
   private
 
+  def java_args
+    '-server -Djava.awt.headless=true'
+  end
+
+  def java_cmd
+    'java'
+  end
+
   def run_tika(option)
-    final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
+    final_cmd = "#{tika_cmd} #{option} '#{@document}'"
 
     _pid, stdin, stdout, stderr = Open4.popen4(final_cmd)
 
@@ -79,8 +81,12 @@ class RubyTikaApp
 
   def strip_stderr(error_message)
     errors = error_message.split("\n")
-    real_errors = errors.reject { |e| /(INFO|WARN)/i.match(e) }
+    real_errors = errors.reject { |error| error =~ %r{(INFO|WARN)} }
     real_errors.empty? ? real_errors : real_errors.join("\n")
+  end
+
+  def tika_cmd
+    "#{java_cmd} #{java_args} -jar '#{tika_path}' #{tika_config}"
   end
 
   def tika_config
@@ -88,6 +94,10 @@ class RubyTikaApp
   end
 
   def tika_config_path
-    @config || "#{File.join(File.dirname(__FILE__))}/../ext/tika-config.xml"
+    @config || File.join(File.dirname(__FILE__), '..', 'ext', 'tika-config.xml')
+  end
+
+  def tika_path
+    File.join(File.dirname(__FILE__),'..', 'ext', 'tika-app-1.18.jar')
   end
 end

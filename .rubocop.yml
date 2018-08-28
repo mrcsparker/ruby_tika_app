@@ -11,8 +11,6 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Enabled: true
   Max: 200
-  Exclude:
-    - '**/*.gemspec'
 
 Metrics/MethodLength:
   Enabled: true
