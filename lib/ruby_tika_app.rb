@@ -5,7 +5,6 @@ require 'stringio'
 require 'open4'
 
 class RubyTikaApp
-
   class Error < RuntimeError; end
 
   class CommandFailedError < Error
@@ -16,17 +15,19 @@ class RubyTikaApp
   end
 
   def initialize(document)
-    if (document =~ /https?:\/\/[\S]+/) == 0
-      @document = document
-    else
-      @document = "file://#{document}"
-    end
+    @document = if (document =~ %r{https?:\/\/[\S]+}) == 0
+                  document
+                else
+                  "file://#{document}"
+                end
 
     java_cmd = 'java'
     java_args = '-server -Djava.awt.headless=true'
-    tika_path = "#{File.join(File.dirname(__FILE__))}/../ext/tika-app-1.9.jar"
+    ext_dir = File.join(File.dirname(__FILE__))
+    tika_path = "#{ext_dir}/../ext/tika-app-1.19.1.jar"
+    tika_config_path = "#{ext_dir}/../ext/tika-config.xml"
 
-    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}'"
+    @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}' --config='#{tika_config_path}'"
   end
 
   def to_xml
@@ -58,7 +59,7 @@ class RubyTikaApp
   def run_tika(option)
     final_cmd = "#{@tika_cmd} #{option} '#{@document}'"
 
-    pid, stdin, stdout, stderr = Open4::popen4(final_cmd)
+    _, stdin, stdout, stderr = Open4.popen4(final_cmd)
 
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
@@ -75,8 +76,8 @@ class RubyTikaApp
     stderr.close
   end
 
-  def strip_stderr(s)
-    s
+  def strip_stderr(err)
+    err
       .gsub(/^(info|warn) - .*$/i, '')
       .strip
       .gsub(/Picked up JAVA_TOOL_OPTIONS: .+ -Dfile.encoding=UTF-8/i, '')
