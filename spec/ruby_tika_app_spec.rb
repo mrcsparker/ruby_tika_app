@@ -19,6 +19,15 @@ describe RubyTikaApp do
     end
   end
 
+  describe 'CommandFailedError' do
+    it 'is raised correctly' do
+      expect do
+        rta = RubyTikaApp.new('/file_not_found.pdf')
+        rta.to_text
+      end.to raise_error(RubyTikaApp::CommandFailedError)
+    end
+  end
+
   describe '#to_xml' do
     it 'header' do
       rta = RubyTikaApp.new(@test_file)

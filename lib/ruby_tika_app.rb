@@ -68,7 +68,7 @@ class RubyTikaApp
     stdout_result = stdout.read.strip
     stderr_result = stderr.read.strip
 
-    unless strip_stderr(stderr_result).empty?
+    if stdout_result.empty? && !stderr_result.empty?
       raise(CommandFailedError.new(stderr_result),
             "execution failed with status #{stderr_result}: #{final_cmd}")
     end
@@ -78,13 +78,5 @@ class RubyTikaApp
     stdin.close
     stdout.close
     stderr.close
-  end
-
-  def strip_stderr(err)
-    err
-      .gsub(/^(info|warn) - .*$/i, '')
-      .strip
-      .gsub(/Picked up JAVA_TOOL_OPTIONS: .+ -Dfile.encoding=UTF-8/i, '')
-      .strip
   end
 end

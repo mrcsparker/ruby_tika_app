@@ -12,7 +12,7 @@ Dir['./spec/support/**/*.rb'].each { |f| require f }
 
 # Start a local rack server to serve up test pages.
 @server_thread = Thread.new do
-  Rack::Handler::Thin.run MyApp::Test::Server.new, Port: 9299
+  Rack::Handler::Thin.run(MyApp::Test::Server.new, Port: 9299, Host: '127.0.0.1')
 end
 
 sleep(1) # wait a sec for the server to be booted
