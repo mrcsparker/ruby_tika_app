@@ -26,7 +26,7 @@ class RubyTikaApp
                 end
 
     java_cmd = 'java'
-    java_args = '-server -Djava.awt.headless=true'
+    java_args = '-server -Djava.awt.headless=true -Dfile.encoding=UTF-8'
     ext_dir = File.join(File.dirname(__FILE__))
     tika_path = "#{ext_dir}/../ext/tika-app-#{TIKA_APP_VERSION}.jar"
     tika_config_path = "#{ext_dir}/../ext/tika-config.xml"
