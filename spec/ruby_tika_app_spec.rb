@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe RubyTikaApp do
@@ -40,7 +42,7 @@ describe RubyTikaApp do
 
       xml_size = xml.size / 2
 
-      expect(xml[xml_size..(xml_size + 100)]).to eq("ph\nG. This methodology is also used in Frontier Sampling (FS).\nSince this is the only difference betw")
+      expect(xml[xml_size..(xml_size + 100)]).to eq("dology is also used in Frontier Sampling (FS).\nSince this is the only difference between MHRW and USD")
     end
   end
 
@@ -52,7 +54,7 @@ describe RubyTikaApp do
 
     it 'middle' do
       rta = RubyTikaApp.new(@test_file)
-      expect(rta.to_html[1000...1100]).to eq("Z\"/>\n<meta name=\"meta:save-date\" content=\"2011-03-29T13:00:16Z\"/>\n<meta name=\"pdf:encrypted\" content")
+      expect(rta.to_html[1000...1100]).to eq("nfo:modified\" content=\"2011-03-29T13:00:16Z\"/>\n<meta name=\"meta:save-date\" content=\"2011-03-29T13:00")
     end
   end
 
