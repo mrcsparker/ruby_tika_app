@@ -7,7 +7,7 @@ require 'stringio'
 require 'open4'
 
 class RubyTikaApp
-  TIKA_APP_VERSION = '1.22'
+  TIKA_APP_VERSION = '1.23'
 
   class Error < RuntimeError; end
 
@@ -42,7 +42,7 @@ class RubyTikaApp
     run_tika('--html')
   end
 
-  def to_json
+  def to_json(*_args)
     run_tika('--json')
   end
 

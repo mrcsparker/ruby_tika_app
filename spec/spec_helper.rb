@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 
@@ -8,7 +10,7 @@ require 'ruby_tika_app'
 require 'rspec'
 
 # Include all files under spec/support
-Dir['./spec/support/**/*.rb'].each { |f| require f }
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 # Start a local rack server to serve up test pages.
 @server_thread = Thread.new do
