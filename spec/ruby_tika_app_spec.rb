@@ -42,7 +42,7 @@ describe RubyTikaApp do
 
       xml_size = xml.size / 2
 
-      expect(xml[xml_size..(xml_size + 100)]).to eq("dology is also used in Frontier Sampling (FS).\nSince this is the only difference between MHRW and USD")
+      expect(xml[xml_size..(xml_size + 100)]).to eq("pply USDSG, we\nneed to change a directed graph Gd to a symmetric graph\nG. This methodology is also us")
     end
   end
 
