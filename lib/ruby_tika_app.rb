@@ -18,7 +18,7 @@ class RubyTikaApp
     end
   end
 
-  def initialize(document)
+  def initialize(document, config_path = nil)
     @document = if (document =~ %r{https?:\/\/[\S]+}) == 0
                   document
                 else
@@ -29,7 +29,7 @@ class RubyTikaApp
     java_args = '-server -Djava.awt.headless=true -Dfile.encoding=UTF-8'
     ext_dir = File.join(File.dirname(__FILE__))
     tika_path = "#{ext_dir}/../ext/tika-app-#{TIKA_APP_VERSION}.jar"
-    tika_config_path = "#{ext_dir}/../ext/tika-config.xml"
+    tika_config_path = config_path || "#{ext_dir}/../ext/tika-config.xml"
 
     @tika_cmd = "#{java_cmd} #{java_args} -jar '#{tika_path}' --config='#{tika_config_path}'"
   end
