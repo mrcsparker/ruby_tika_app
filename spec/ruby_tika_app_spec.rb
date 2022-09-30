@@ -119,4 +119,12 @@ describe RubyTikaApp do
       expect(rta.to_text).to eq(RubyTikaApp.new(@news_ycombinator_com_file).to_text)
     end
   end
+
+  context 'with an alternate config file path' do
+    it 'works as expected' do
+      config_path = File.join(File.dirname(__FILE__), 'fixtures', 'tika-config.xml')
+      rta = RubyTikaApp.new(@test_file, config_path)
+      expect(rta.to_xml[0..37]).to eq('<?xml version="1.0" encoding="UTF-8"?>')
+    end
+  end
 end
